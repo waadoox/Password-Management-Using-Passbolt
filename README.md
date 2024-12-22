@@ -1,52 +1,49 @@
-# Password Management System Using Passbolt
+# Passbolt Password Manager Project
 
-## Overview
-This project demonstrates the deployment and configuration of a secure password management system using **Passbolt**, hosted on an **AWS EC2 instance**. The project integrates a custom domain registered via **cybereditproject.info** and implements secure access protocols to adhere to cybersecurity best practices.
+This project demonstrates the secure deployment of the Passbolt password manager using AWS, Namecheap, and Let's Encrypt for SSL/TLS encryption.
 
-## Key Features
-- Hosted Passbolt instance on AWS cloud platform.
-- Custom domain configuration using Namecheap.
-- Secure access using **SSL/TLS** and **SSH**.
-- Adherence to network security principles and protocols.
+## Features
+- Hosted Passbolt on AWS EC2 instance.
+- Registered a custom domain with Namecheap.
+- Configured SSL/TLS encryption with Let's Encrypt.
+- Set up secure SSH access for server management.
 
----
+## Access Details
+- **Passbolt URL**: [https://cybereditproject.info](https://cybereditproject.info)
+- **Public IP**: `13.40.228.225`
 
-## Technologies Used
-- **AWS**: EC2 instance for hosting Passbolt.
-- **Namecheap**: Domain registration and configuration.
-- **Ubuntu**: Operating system for configuring SSL and managing the server.
-- **Passbolt**: Open-source password management tool.
-- **Protocols**: TCP/IP, SSL/TLS, SSH for secure data transmission.
+## SSL Certificate
+- **Certificate Location**: `/etc/letsencrypt/live/cybereditproject.info/fullchain.pem`
+- **Key Location**: `/etc/letsencrypt/live/cybereditproject.info/privkey.pem`
+- **Expiration**: 2025-03-21
+- Automatically renewed using Certbot.
 
----
+## Configuration Steps
+1. Set up an EC2 instance on AWS.
+2. Register a domain on Namecheap and point it to the public IP.
+3. Install and configure Passbolt:
+   - Update `nginx` with your domain in `/etc/nginx/sites-enabled/nginx-passbolt.conf`.
+   - Reconfigure Passbolt with `dpkg-reconfigure passbolt-ce-server`.
+4. Enable HTTPS:
+   - Use Certbot to request and deploy an SSL certificate.
+   - Reload `nginx` to apply the changes.
+5. Complete the installation at [https://cybereditproject.info](https://cybereditproject.info).
 
-## Project Architecture
-1. **AWS EC2 Instance**: 
-   - Public IP: `13.40.228.225`.
-   - Instance configured to host Passbolt.
-2. **Namecheap Domain**:
-   - Domain linked to AWS server.
-3. **SSL Configuration**:
-   - Ensures encrypted communication using Let's Encrypt.
-4. **Secure Access**:
-   - SSH for managing the server.
-   - SSL/TLS for encrypted client-server communication.
+## Security Details
+- **SSH Key Fingerprint**:
 
----
+- **Database Credentials**:
+Credentials are stored in `/root/.mysql_credentials` and should be secured appropriately.
 
-## Setup and Configuration
+## Screenshots
+- Passbolt Login Page:
+![Login Page](screenshots/passbolt_login.png)
+- SSL Configuration:
+![SSL Secure](screenshots/ssl_secure.png)
 
-### 1. Setting Up the AWS Instance
-- Launch an EC2 instance on AWS.
-- Choose Ubuntu as the operating system.
-- Configure security groups to allow SSH, HTTP, and HTTPS access.
+## Future Enhancements
+- Implement 2FA for added security.
+- Set up monitoring and alerting with AWS CloudWatch.
+- Automate database backups.
 
-### 2. Domain Configuration with Namecheap
-- Register a domain on [Namecheap](https://www.namecheap.com).
-- Update the DNS settings to point the domain to the AWS EC2 instance's public IP (`13.40.228.225`).
 
-### 3. Secure Access with SSH
-- Generate an SSH key pair.
-- Use the private key to securely connect to the EC2 instance:
-  ```bash
-  ssh -i "your-key.pem" ubuntu@13.40.228.225
